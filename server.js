@@ -35,6 +35,12 @@ app.use((req, res, next) => {
   res.locals.currentUser = req.user;
   next();
 });
+app.use((req, res, next) => {
+  console.log(res.locals);
+  res.locals.alerts = req.flash();
+  res.locals.currentProvider = req.provider;
+  next();
+});
 
 app.get("/", (req, res) => {
   res.render("index");
@@ -44,6 +50,11 @@ app.get("/profile", isLoggedIn, (req, res) => {
   const { id, name, email } = req.user.get();
   res.render("profile", { id, name, email });
 });
+
+// app.get("/profile", isLoggedIn, (req, res) => {
+//   const { id, name, email } = req.provider.get();
+//   res.render("profile", { id, name, email });
+// });
 
 app.use("/auth", require("./controllers/auth"));
 
