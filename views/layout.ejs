@@ -13,15 +13,17 @@
       <nav>
         <ul>
           <% if (!currentUser) {%>
-            <li><a href="/auth/signup">Signup as currentUser</a></li>
+            <li><a href="/auth/signup">Signup as User</a></li>
             <li><a href="/auth/login">Login as User</a></li>
+            <br>
             <li><a href="/auth/providerSignup">Signup as Provider</a></li>
-            <li><a href="/auth/providerlogin">login Provider</a></li>
+            <li><a href="/auth/providerlogin">login as Provider</a></li>
 
 
           <% } else { %>
           <li><a href="/auth/logout">Logout</a></li>
           <li><a href="/profile">Profile</a></li>
+          <li><a href="/newpost"></a>Create post</li>
           <% } %>
     </header>
     <!-- <h1>Authentication</h1> -->

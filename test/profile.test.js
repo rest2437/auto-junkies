@@ -28,7 +28,7 @@ describe("GET /profile", function () {
         password: "password",
       })
       .expect(302)
-      .expect("Location", "/")
+      .expect("Location", "/profile")
       .end(function (error, res) {
         if (error) {
           done(error);
@@ -46,16 +46,16 @@ before(function (done) {
 });
 
 describe("GET /profile", function () {
-  it("should redirect to /auth/login if not logged in", function (done) {
+  it("should redirect to /auth/providerlogin if not logged in", function (done) {
     request(app)
       .get("/profile")
-      .expect("Location", "/auth/login")
+      .expect("Location", "/auth/providerlogin")
       .expect(302, done);
   });
 
   it("should return a 200 response if logged in", function (done) {
     agent
-      .post("/auth/providerSignup")
+      .post("/auth/providerLogin")
       .set("Content-Type", "application/x-www-form-urlencoded")
       .send({
         email: "my@user.co",
@@ -63,7 +63,7 @@ describe("GET /profile", function () {
         password: "password",
       })
       .expect(302)
-      .expect("Location", "/")
+      .expect("Location", "/profile")
       .end(function (error, res) {
         if (error) {
           done(error);

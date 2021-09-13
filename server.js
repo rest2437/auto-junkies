@@ -46,15 +46,15 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.get("/profile", isLoggedIn, (req, res) => {
+app.get("/userPages/profile", isLoggedIn, (req, res) => {
   const { id, name, email } = req.user.get();
   res.render("profile", { id, name, email });
 });
 
-// app.get("/profile", isLoggedIn, (req, res) => {
-//   const { id, name, email } = req.provider.get();
-//   res.render("profile", { id, name, email });
-// });
+app.get("/providerPages/profile", isLoggedIn, (req, res) => {
+  const { id, name, email } = req.provider.get();
+  res.render("profile", { id, name, email });
+});
 
 app.use("/auth", require("./controllers/auth"));
 

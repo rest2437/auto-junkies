@@ -59,7 +59,7 @@ describe("Auth Controller", function () {
           email: "test@butts.co",
           password: "123123123",
         })
-        .expect("Location", "/")
+        .expect("Location", "/auth/profile")
         .expect(302, done);
     });
 
@@ -111,7 +111,7 @@ describe("Auth Controller", function () {
           name: "Mike Schull",
           password: "123123123",
         })
-        .expect("Location", "/")
+        .expect("Location", "/auth/profile")
         .expect(302, done);
     });
 
@@ -129,34 +129,34 @@ describe("Auth Controller", function () {
     });
   });
 
-  describe("GET /auth/login", function () {
+  describe("GET /auth/providerlogin", function () {
     it("should return a 200 response", function (done) {
-      request(app).get("/auth/login").expect(200, done);
+      request(app).get("/auth/providerlogin").expect(200, done);
     });
   });
 
   describe("POST /auth/login", function () {
     it("should redirect to / on success", function (done) {
       request(app)
-        .post("/auth/login")
+        .post("/auth/providerlogin")
         .set("Content-Type", "application/x-www-form-urlencoded")
         .send({
           email: "test@butts.co",
           password: "123123123",
         })
-        .expect("Location", "/")
+        .expect("Location", "/auth/providerprofile")
         .expect(302, done);
     });
 
-    it("should redirect to /auth/login on failure", function (done) {
+    it("should redirect to /auth/providerlogin on failure", function (done) {
       request(app)
-        .post("/auth/login")
+        .post("/auth/providerlogin")
         .set("Content-Type", "application/x-www-form-urlencoded")
         .send({
           email: "new@new.co",
           password: "p",
         })
-        .expect("Location", "/auth/login")
+        .expect("Location", "/auth/providerlogin")
         .expect(302, done);
     });
   });

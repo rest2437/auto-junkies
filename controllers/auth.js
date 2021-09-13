@@ -29,7 +29,7 @@ router.get("/logout", (req, res) => {
 router.post(
   "/login",
   passport.authenticate("user-local", {
-    successRedirect: "/profile",
+    successRedirect: "/userPages/profile",
     failureRedirect: "/auth/login",
     successFlash: "Welcome back ...",
     failureFlash: "Either email or password is incorrect",
@@ -39,7 +39,7 @@ router.post(
 router.post(
   "/providerlogin",
   passport.authenticate("provider-local", {
-    successRedirect: "/profile",
+    successRedirect: "/providerPages/profile",
     failureRedirect: "/auth/providerlogin",
     successFlash: "Welcome back ...",
     failureFlash: "Either email or password is incorrect",
