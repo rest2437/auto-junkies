@@ -46,6 +46,7 @@ passport.deserializeUser(async (id, cb) => {
     console.log(err);
   }
 });
+passport.use(STRATEGY);
 
 //==========================================PROVIDER=============================
 const { Provider } = require("../models");
