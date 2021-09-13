@@ -16,6 +16,9 @@ router.get("/providerSignup", (req, res) => {
 router.get("/login", (req, res) => {
   res.render("auth/login");
 });
+router.get("/providerlogin", (req, res) => {
+  res.render("auth/providerlogin");
+});
 router.get("/logout", (req, res) => {
   req.logOut();
   req.flash("success", "Logging out... See you next time!");
@@ -25,9 +28,19 @@ router.get("/logout", (req, res) => {
 //==================================POST ROUTS=====================================
 router.post(
   "/login",
-  passport.authenticate("local", {
-    successRedirect: "/",
+  passport.authenticate("user-local", {
+    successRedirect: "/profile",
     failureRedirect: "/auth/login",
+    successFlash: "Welcome back ...",
+    failureFlash: "Either email or password is incorrect",
+  })
+);
+
+router.post(
+  "/providerlogin",
+  passport.authenticate("provider-local", {
+    successRedirect: "/profile",
+    failureRedirect: "/auth/providerlogin",
     successFlash: "Welcome back ...",
     failureFlash: "Either email or password is incorrect",
   })

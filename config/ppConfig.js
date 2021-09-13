@@ -12,7 +12,7 @@ const STRATEGY = new LocalStrategy(
     passwordField: "password", // looks for an password field as the password
   },
   async (email, password, cb) => {
-    //cb stabnds for call back
+    //cb stands for call back
     try {
       const user = await User.findOne({
         where: { email },
@@ -46,15 +46,15 @@ passport.deserializeUser(async (id, cb) => {
     console.log(err);
   }
 });
-passport.use(STRATEGY);
+passport.use("user-local", STRATEGY);
 
 //==========================================PROVIDER=============================
 const { Provider } = require("../models");
 
 const STRATEGY2 = new LocalStrategy2(
   {
-    providernameField: "providerEmail", // looks for an email field as the username
-    providerpasswordField: "providerPassword", // looks for an password field as the password
+    usernameField: "email", // looks for an email field as the username
+    passwordField: "password", // looks for an password field as the password
   },
   async (email, password, cb) => {
     //cb stabnds for call back
@@ -92,5 +92,5 @@ passport.deserializeUser(async (id, cb) => {
   }
 });
 
-passport.use(STRATEGY2);
+passport.use("provider-local", STRATEGY2);
 module.exports = passport;
