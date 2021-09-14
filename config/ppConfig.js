@@ -1,6 +1,5 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-const LocalStrategy2 = require("passport-local").Strategy;
 
 // Database
 //=======================================USER=============================================
@@ -51,7 +50,7 @@ passport.use("user-local", STRATEGY);
 //==========================================PROVIDER=============================
 const { Provider } = require("../models");
 
-const STRATEGY2 = new LocalStrategy2(
+const STRATEGY2 = new LocalStrategy(
   {
     usernameField: "email", // looks for an email field as the username
     passwordField: "password", // looks for an password field as the password

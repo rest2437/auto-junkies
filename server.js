@@ -29,11 +29,14 @@ app.use(flash()); // flash middleware
 app.use(passport.initialize()); // Initialize passport
 app.use(passport.session()); // Add a session
 
+app.use("/provider", require("./controllers/provider"));
+app.use("/user", require("./controllers/user"));
+
 app.use((req, res, next) => {
-  console.log(res.locals);
+  // console.log(res.locals);
   res.locals.alerts = req.flash();
-  res.locals.currentUser = req.user || undefined;
-  res.locals.currentProvider = req.provider || undefined;
+  res.locals.currentUser = undefined;
+  res.locals.currentProvider = undefined;
   next();
 });
 
@@ -43,8 +46,6 @@ app.get("/", (req, res) => {
 
 //controllers
 // app.use("/auth", require("./controllers/auth"));
-app.use("/provider", require("./controllers/provider"));
-app.use("/user", require("./controllers/user"));
 
 app.get("*", (req, res) => {
   res.render("404");

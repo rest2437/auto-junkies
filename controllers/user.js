@@ -1,8 +1,9 @@
 require("dotenv").config();
 const express = require("express");
 const userRouter = express.Router();
-const passport = require("../config/ppConfig");
+const passport = require("../config/user-config");
 const isUserLoggedIn = require("../middleware/isUserLoggedIn");
+const layouts = require("express-ejs-layouts");
 // const session = require("express-session");
 // const flash = require("connect-flash");
 // const methodOverride = require("method-override");
@@ -24,8 +25,16 @@ const { User } = require("../models");
 // };
 
 // userRouter.use(session(sessionObject));
-// userRouter.use(passport.initialize());
-// userRouter.use(passport.session());
+userRouter.use(layouts);
+userRouter.use(passport.initialize());
+userRouter.use(passport.session());
+userRouter.use((req, res, next) => {
+  res.locals.alerts = req.flash();
+  res.locals.currentUser = req.user;
+  res.locals.currentProvider = undefined;
+  console.log("inside user controller", res.locals);
+  next();
+});
 // userRouter.use(flash());
 // userRouter.use((req, res, next) => {
 //   res.locals.success_msg = req.flash("success_msg");
@@ -45,7 +54,7 @@ userRouter.get("/login", (req, res) => {
 userRouter.get("/profile", isUserLoggedIn, (req, res) => {
   if (req.user.get()) {
     const { id, name, email } = req.user.get();
-    res.render("provider/profile", { id, name, email });
+    res.render("user/profile", { id, name, email });
   }
 });
 
@@ -71,7 +80,7 @@ userRouter.post("/signup", (req, res) => {
           successRedirect: `/user/profile`,
           successFlash: `Welcome ${user.name}. Account was created and logging in...`,
         };
-        passport.authenticate("user-local", successObject)(req, res);
+        passport.authenticate("local", successObject)(req, res);
       } else {
         // Send back email already exists
         req.flash("error", "Email already exists");
@@ -91,7 +100,7 @@ userRouter.post("/signup", (req, res) => {
 
 userRouter.post(
   "/login",
-  passport.authenticate("user-local", {
+  passport.authenticate("local", {
     successRedirect: "/",
     failureRedirect: "/user/login",
     successFlash: "Welcome back ...",

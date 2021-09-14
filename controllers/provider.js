@@ -1,11 +1,12 @@
 require("dotenv").config();
 const express = require("express");
-const passport = require("../config/ppConfig");
+const passport = require("../config/provider-config");
 const providerRouter = express.Router();
 const isProviderLoggedIn = require("../middleware/isProviderLoggedIn");
+const layouts = require("express-ejs-layouts");
 // const session = require("express-session");
 // const layouts = require("express-ejs-layouts");
-// const flash = require("connect-flash");
+const flash = require("connect-flash");
 // const methodOverride = require("method-override");
 
 // providerRouter.use(require("morgan")("dev"));
@@ -25,8 +26,17 @@ const { Provider } = require("../models");
 // };
 
 // providerRouter.use(session(sessionObject));
-// providerRouter.use(passport.initialize());
-// providerRouter.use(passport.session());
+providerRouter.use(layouts);
+providerRouter.use(passport.initialize());
+providerRouter.use(passport.session());
+providerRouter.use((req, res, next) => {
+  res.locals.alerts = req.flash();
+  res.locals.currentUser = undefined;
+  res.locals.currentProvider = req.provider;
+  console.log("inside provider controller", res.locals);
+  next();
+});
+
 // providerRouter.use(flash());
 // providerRouter.use((req, res, next) => {
 //   res.locals.success_msg = req.flash("success_msg");
@@ -47,7 +57,7 @@ providerRouter.get("/login", (req, res) => {
 providerRouter.get("/profile", isProviderLoggedIn, (req, res) => {
   if (req.provider.get()) {
     const { id, name, email } = req.provider.get();
-    res.render("user/profile", { id, name, email });
+    res.render("provider/profile", { id, name, email });
   }
 });
 
