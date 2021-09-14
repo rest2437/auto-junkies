@@ -12,19 +12,26 @@
     <header>
       <nav>
         <ul>
-          <% if (!currentUser) {%>
-            <li><a href="/auth/signup">Signup as User</a></li>
-            <li><a href="/auth/login">Login as User</a></li>
+          <% if (!currentUser && !currentProvider) {%>
+            <li><a href="/user/signup">Signup as User</a></li>
+            <li><a href="/user/login">Login as User</a></li>
             <br>
-            <li><a href="/auth/providerSignup">Signup as Provider</a></li>
-            <li><a href="/auth/providerlogin">login as Provider</a></li>
-
-
+            <li><a href="/provider/signup">Signup as Provider</a></li>
+            <li><a href="/provider/login">login as Provider</a></li>
           <% } else { %>
-          <li><a href="/auth/logout">Logout</a></li>
-          <li><a href="/profile">Profile</a></li>
-          <li><a href="/newpost"></a>Create post</li>
+            
+            <% if (currentUser) {%>
+              <li><a href="/user/logout">Logout</a></li>
+              <li><a href="/user/profile">Profile</a></li>
+              <li><a href="/newpost"></a>Create post</li>
+            <% } else if (currentProvider) %>
+              <li><a href="/provider/logout">Logout</a></li>
+              <li><a href="/provider/profile">Profile</a></li>
+              <li><a href="/newpost"></a>Create post</li>
+            <% } %>
+
           <% } %>
+
     </header>
     <!-- <h1>Authentication</h1> -->
     <%- body %>
