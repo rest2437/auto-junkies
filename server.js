@@ -5,10 +5,10 @@ const app = express();
 const session = require("express-session");
 const flash = require("connect-flash");
 const passport = require("./config/ppConfig");
-const isProviderLoggedIn = require("./middleware/isProviderLoggedIn");
-const isUserLoggedIn = require("./middleware/isUserLoggedIn");
+const isLoggedIn = require("./middleware/isLoggedIn");
 
 const SECRET_SESSION = process.env.SECRET_SESSION;
+console.log(SECRET_SESSION);
 
 app.set("view engine", "ejs");
 
@@ -32,8 +32,7 @@ app.use(passport.session()); // Add a session
 app.use((req, res, next) => {
   console.log(res.locals);
   res.locals.alerts = req.flash();
-  res.locals.currentUser = req.user || undefined;
-  res.locals.currentProvider = req.provider || undefined;
+  res.locals.currentUser = req.user;
   next();
 });
 
@@ -41,16 +40,18 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-//controllers
-// app.use("/auth", require("./controllers/auth"));
-app.use("/provider", require("./controllers/provider"));
-app.use("/user", require("./controllers/user"));
+app.get("/profile", isLoggedIn, (req, res) => {
+  const { id, name, email } = req.user.get();
+  res.render("profile", { id, name, email });
+});
+
+app.use("/auth", require("./controllers/auth"));
 
 app.get("*", (req, res) => {
   res.render("404");
 });
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 3000;
 const server = app.listen(PORT, () => {
   console.log(`🎧 You're listening to the smooth sounds of port ${PORT} 🎧`);
 });

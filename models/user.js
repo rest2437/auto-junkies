@@ -23,6 +23,13 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
+      provider: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
+      providerNumber: {
+        type: DataTypes.INTEGER,
+      },
       email: {
         type: DataTypes.STRING,
         validate: {

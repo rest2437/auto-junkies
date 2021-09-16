@@ -11,6 +11,12 @@ module.exports = {
       name: {
         type: Sequelize.STRING,
       },
+      provider: {
+        type: Sequelize.BOOLEAN,
+      },
+      providerNumber: {
+        type: Sequelize.INTEGER,
+      },
       email: {
         type: Sequelize.STRING,
       },
