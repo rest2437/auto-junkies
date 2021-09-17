@@ -13,6 +13,7 @@ console.log(SECRET_SESSION);
 
 app.set("view engine", "ejs");
 app.use(methodOverride("_method"));
+
 app.use(require("morgan")("dev"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname + "/public"));
