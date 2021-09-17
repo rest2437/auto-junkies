@@ -1,9 +1,10 @@
 nav ul li {
   text-decoration: none;
   display: inline-block;
-  margin-right: .3em;
+  margin-right: 0.3em;
 }
 
-h1 {
-  color: chartreuse;
+h1,
+h2 {
+  color: orange;
 }
