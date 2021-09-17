@@ -1,37 +1,49 @@
 //=================================IMPORTS=======================================
+
 const express = require("express");
 const router = express.Router();
 const passport = require("../config/ppConfig");
 const { User } = require("../models");
-
+const generateProviderId = require("../utils/utils");
 //=================================GET ROUTS=======================================
-router.get("/signup", (req, res) => {
-  res.render("auth/signup");
+
+router.get("/p-home", (req, res) => {
+  res.render("auth/p-home");
 });
 
-router.get("/login", (req, res) => {
-  res.render("auth/login");
+router.get("/u-home", (req, res) => {
+  res.render("auth/u-home");
 });
+
 router.get("/logout", (req, res) => {
-  req.logOut(); // logs the user out of the session
+  req.logOut();
   req.flash("success", "Logging out... See you next time!");
   res.redirect("/");
 });
 
 //==================================POST ROUTS=====================================
+
 router.post(
-  "/login",
+  "/providerLogin",
   passport.authenticate("local", {
     successRedirect: "/",
-    failureRedirect: "/auth/login",
+    failureRedirect: "/auth/p-home",
+    successFlash: "Welcome back ...",
+    failureFlash: "Either email or password is incorrect",
+  })
+);
+router.post(
+  "/userLogin",
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/auth/u-home",
     successFlash: "Welcome back ...",
     failureFlash: "Either email or password is incorrect",
   })
 );
 
-router.post("/signup", async (req, res) => {
-  // we now have access to the user info (req.body);
-  const { email, name, password } = req.body; // goes and us access to whatever key/value inside of the object
+router.post("/userSignup", async (req, res) => {
+  const { email, name, password } = req.body;
   try {
     const [user, created] = await User.findOrCreate({
       where: { email },
@@ -39,7 +51,6 @@ router.post("/signup", async (req, res) => {
     });
 
     if (created) {
-      // if created, success and we will redirect back to / page
       console.log(`----- ${user.name} was created -----`);
       const successObject = {
         successRedirect: "/",
@@ -48,19 +59,126 @@ router.post("/signup", async (req, res) => {
       //
       passport.authenticate("local", successObject)(req, res);
     } else {
-      // Send back email already exists
       req.flash("error", "Email already exists");
-      res.redirect("/auth/signup"); // redirect the user back to sign up page to try again
+      res.redirect("/auth/u-home");
     }
   } catch (error) {
-    // There was an error that came back; therefore, we just have the user try again
     console.log("**************Error");
     console.log(error);
     req.flash(
       "error",
       "Either email or password is incorrect. Please try again."
     );
-    res.redirect("/auth/signup");
+    res.redirect("/auth/u-home");
+  }
+});
+
+router.post("/providerSignup", async (req, res) => {
+  const { email, name, password } = req.body;
+  let id = generateProviderId();
+  console.log(id);
+  try {
+    const [user, created] = await User.findOrCreate({
+      where: { email },
+      defaults: { name, password, providerNumber: id, provider: true },
+    });
+
+    if (created) {
+      console.log(`----- ${user.name} was created -----`);
+      const successObject = {
+        successRedirect: "/",
+        successFlash: `Welcome ${user.name}. Account was created and logging in...`,
+      };
+      //
+      passport.authenticate("local", successObject)(req, res);
+    } else {
+      req.flash("error", "Email already exists");
+      res.redirect("/auth/p-home");
+    }
+  } catch (error) {
+    console.log("**************Error");
+    console.log(error);
+    req.flash(
+      "error",
+      "Either email or password is incorrect. Please try again."
+    );
+    res.redirect("/auth/p-home");
+  }
+});
+
+router.put("/edit/:idx", async (req, res) => {
+  let name = req.body.name;
+  let email = req.body.email;
+  let id = req.params.idx;
+  try {
+    if (name && email) {
+      let numberOfUsersUpdated = await User.update(
+        { name, email },
+        {
+          where: { id },
+        }
+      );
+
+      res.redirect("/providerProfile");
+    } else if (name) {
+      let numberOfUsersUpdated = await User.update(
+        { name },
+        {
+          where: { id },
+        }
+      );
+
+      res.redirect("/providerProfile");
+    } else if (email) {
+      let numberOfUsersUpdated = await User.update(
+        { email },
+        {
+          where: { id },
+        }
+      );
+
+      res.redirect("/providerProfile");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+router.put("/edit/:idx", async (req, res) => {
+  let name = req.body.name;
+  let email = req.body.email;
+  let id = req.params.idx;
+  try {
+    if (name && email) {
+      let numberOfUsersUpdated = await User.update(
+        { name, email },
+        {
+          where: { id },
+        }
+      );
+
+      res.redirect("/userProfile");
+    } else if (name) {
+      let numberOfUsersUpdated = await User.update(
+        { name },
+        {
+          where: { id },
+        }
+      );
+
+      res.redirect("/userProfile");
+    } else if (email) {
+      let numberOfUsersUpdated = await User.update(
+        { email },
+        {
+          where: { id },
+        }
+      );
+
+      res.redirect("/userProfile");
+    }
+  } catch (error) {
+    console.log(error);
   }
 });
 

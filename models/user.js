@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: false,
       },
       providerNumber: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
       },
       email: {
         type: DataTypes.STRING,

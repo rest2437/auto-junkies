@@ -6,12 +6,13 @@ const session = require("express-session");
 const flash = require("connect-flash");
 const passport = require("./config/ppConfig");
 const isLoggedIn = require("./middleware/isLoggedIn");
+const methodOverride = require("method-override");
 
 const SECRET_SESSION = process.env.SECRET_SESSION;
 console.log(SECRET_SESSION);
 
 app.set("view engine", "ejs");
-
+app.use(methodOverride("_method"));
 app.use(require("morgan")("dev"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname + "/public"));
@@ -25,7 +26,6 @@ app.use(
 );
 
 app.use(flash()); // flash middleware
-
 app.use(passport.initialize()); // Initialize passport
 app.use(passport.session()); // Add a session
 
@@ -41,8 +41,13 @@ app.get("/", (req, res) => {
 });
 
 app.get("/profile", isLoggedIn, (req, res) => {
-  const { id, name, email } = req.user.get();
-  res.render("profile", { id, name, email });
+  const { id, name, email, providerNumber } = req.user.get();
+
+  if (providerNumber) {
+    res.render("providerProfile", { id, name, email, providerNumber });
+  } else {
+    res.render("userProfile", { id, name, email });
+  }
 });
 
 app.use("/auth", require("./controllers/auth"));

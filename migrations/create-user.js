@@ -15,7 +15,7 @@ module.exports = {
         type: Sequelize.BOOLEAN,
       },
       providerNumber: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
       },
       email: {
         type: Sequelize.STRING,
