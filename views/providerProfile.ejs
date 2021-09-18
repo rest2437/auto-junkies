@@ -5,10 +5,29 @@
 <p>Id: <%= id %></p>
 <p>Name: <%= name %></p>
 <p>Email: <%= email %></p>
-<p>providerNumber <%= providerNumber %> </p>
 
+<p>Provider unique ID Number:</p>
+<input type="button"  class="btn btn-primary" onclick="copyLink()" data-toggle="tooltip" title="Copy to Clipboard" value="Copy Code" readonly />
 
+<span id="copyText"><%= providerNumber %></span>
 
+<script>
+  function copyLink() {
+    let copyText = document.getElementById("copyText") 
+
+    var selection = window.getSelection();
+
+    var range = document.createRange();
+
+    range.selectNodeContents(copyText);
+
+    selection.removeAllRanges();
+
+    selection.addRange(range);
+
+    document.execCommand('copy');
+  }
+</script>
 <!-- <form action="/auth/edit/id<%=id%>/?_method=PUT">
     <h1>Edit Profile</h1>
     <label for="new-email">Email</label>
@@ -21,16 +40,15 @@
 </form> -->
 
 <h2>Edit your credentials</h2>
-<form action="/auth/edit/id<%=id%>/?_method=PUT">
+<form action="/auth/edit/<%=id%>/?_method=PUT" method="POST">
     <div class="form-group">
         <label for="new-email">Email</label>
-        <input id="new-email" type="email" name="email" required class="form-control" placeholder="Enter email">
+        <input id="new-email" type="email" name="email" class="form-control" placeholder="<%=email%>">
     </div>
     <div class="form-group">
         <label for="new-name">Name</label>
-        <input id="new-name" type="text" name="name" required class="form-control" placeholder="Name">
+        <input id="new-name" type="text" name="name" class="form-control" placeholder="<%=name%>">
     </div>
     <button type="submit" value="Update" class="btn btn-primary">Update</button>
   </form>
 <br>
-

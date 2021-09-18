@@ -18,15 +18,15 @@
 </form>
  -->
  <h2>Edit your credentials</h2>
-<form action="/auth/edit/id<%=id%>/?_method=PUT">
+<form action="/auth/edit/<%=id%>/?_method=PUT" method="POST">
     <div class="form-group">
         <label for="new-email">Email</label>
-        <input id="new-email" type="email" name="email" required class="form-control" placeholder="Enter email">
+        <input id="new-email" type="email" name="email" class="form-control" placeholder="<%=email%>">
     </div>
     <div class="form-group">
         <label for="new-name">Name</label>
-        <input id="new-name" type="text" name="name" required class="form-control" placeholder="Name">
+        <input id="new-name" type="text" name="name" class="form-control" placeholder="<%=name%>">
     </div>
-    <button type="submit" value="sign up" class="btn btn-primary">Update</button>
+    <button type="submit" value="Update" class="btn btn-primary">Update</button>
   </form>
 <br>

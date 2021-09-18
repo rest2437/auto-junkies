@@ -118,8 +118,7 @@ router.put("/edit/:idx", async (req, res) => {
           where: { id },
         }
       );
-
-      res.redirect("/providerProfile");
+      res.redirect("/profile");
     } else if (name) {
       let numberOfUsersUpdated = await User.update(
         { name },
@@ -128,7 +127,7 @@ router.put("/edit/:idx", async (req, res) => {
         }
       );
 
-      res.redirect("/providerProfile");
+      res.redirect("/profile");
     } else if (email) {
       let numberOfUsersUpdated = await User.update(
         { email },
@@ -137,47 +136,10 @@ router.put("/edit/:idx", async (req, res) => {
         }
       );
 
-      res.redirect("/providerProfile");
+      res.redirect("/profile");
     }
   } catch (error) {
-    console.log(error);
-  }
-});
-
-router.put("/edit/:idx", async (req, res) => {
-  let name = req.body.name;
-  let email = req.body.email;
-  let id = req.params.idx;
-  try {
-    if (name && email) {
-      let numberOfUsersUpdated = await User.update(
-        { name, email },
-        {
-          where: { id },
-        }
-      );
-
-      res.redirect("/userProfile");
-    } else if (name) {
-      let numberOfUsersUpdated = await User.update(
-        { name },
-        {
-          where: { id },
-        }
-      );
-
-      res.redirect("/userProfile");
-    } else if (email) {
-      let numberOfUsersUpdated = await User.update(
-        { email },
-        {
-          where: { id },
-        }
-      );
-
-      res.redirect("/userProfile");
-    }
-  } catch (error) {
+    res.render("404");
     console.log(error);
   }
 });
