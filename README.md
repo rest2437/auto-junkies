@@ -53,50 +53,6 @@ Auto Junkies is a subdivision of HoodRats Forum. Its primary purpose is to allow
 
 ---
 
-### Models - Providers
-
-- ```js
-  Module.exports = (sequelize, DataTypes) => {
-    class Provider extends Model {
-      static associate(models) {}
-    }
-    Provider.init(
-      {
-        name: {
-          type: DataTypes.STRING,
-          validate: {
-            len: {
-              args: [1, 99],
-              msg: "Name must be between 1 and 99 characters",
-            },
-          },
-        },
-        email: {
-          type: DataTypes.STRING,
-          validate: {
-            isEmail: {
-              msg: "Invalid email",
-            },
-          },
-        },
-        password: {
-          type: DataTypes.STRING,
-          validate: {
-            len: {
-              args: [8, 99],
-              msg: "Password must be between 8 and 99 characters",
-            },
-          },
-        },
-      },
-      {
-        sequelize,
-        modelName: "Provider",
-      }
-    );
-  ```
-  ***
-
 ### Models - Users
 
 - ```js
@@ -190,12 +146,38 @@ provider: {
 ### Installation
 
 - Open iTerm and navigate to a folder in which you would like to install this app.
-- Clone repository ( git clone https://github.com/rest2437/auto-junkies.git )
-- Open file in VScode ( code . )
-- Open Terminal in VScode ( contol backtick )
-- Install Sequelize ( npm install sequelize-cli -g )
-- Install all dependencies ( npm install )
-- Create DB ( sequelize db:create )
-- Migrate DB (sequelize db:migrate )
-- Create .env file and copy and paste this secret session : SECRET_SESSION=alldayidreamaboutsoftwareengineering
-- Run ( npm run start ) and enjoy!
+- Clone repository
+```
+git clone https://github.com/rest2437/auto-junkies.git
+```
+- Change directories into `auto-junkies`
+```
+cd auto-junkies
+```
+- Open file in VScode
+```
+code .
+```
+- Open Terminal in VScode ( `CTRL + backtick` )
+
+- Install Sequelize CLI globally
+```
+npm install sequelize-cli -g
+```
+- Install all dependencies
+```
+npm instalL
+```
+- Create DB
+```
+sequelize db:create
+```
+- Migrate DB
+```
+sequelize db:migrate
+```
+- Create `.env` file and copy and paste this secret session : `SECRET_SESSION=yoursecretsession`
+- Run `start`
+```
+npm start
+```
