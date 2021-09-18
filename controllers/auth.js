@@ -15,6 +15,10 @@ router.get("/u-home", (req, res) => {
   res.render("auth/u-home");
 });
 
+router.get("/adds", (req, res) => {
+  res.render("auth/adds");
+});
+
 router.get("/logout", (req, res) => {
   req.logOut();
   req.flash("success", "Logging out... See you next time!");

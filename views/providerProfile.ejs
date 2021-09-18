@@ -1,6 +1,8 @@
 <h2>Provider Page</h2>
 
+<div class='profile'>
 <h3>Welcome to your Provider PROFILE</h3>
+
 
 <p>Id: <%= id %></p>
 <p>Name: <%= name %></p>
@@ -8,9 +10,7 @@
 
 <p>Provider unique ID Number:</p>
 <input type="button"  class="btn btn-primary" onclick="copyLink()" data-toggle="tooltip" title="Copy to Clipboard" value="Copy Code" readonly />
-
 <span id="copyText"><%= providerNumber %></span>
-
 <script>
   function copyLink() {
     let copyText = document.getElementById("copyText") 
@@ -28,16 +28,7 @@
     document.execCommand('copy');
   }
 </script>
-<!-- <form action="/auth/edit/id<%=id%>/?_method=PUT">
-    <h1>Edit Profile</h1>
-    <label for="new-email">Email</label>
-    <input id="new-email" type="email" name="email" placeholder="<%=email%>">
-  <br></br>
-    <label for="new-name">Name</label>
-    <input id="new-name" type="text" name="name" placeholder="<%=name%>">
-  
-    <input type="submit" value="Update">
-</form> -->
+</div>
 
 <h2>Edit your credentials</h2>
 <form action="/auth/edit/<%=id%>/?_method=PUT" method="POST">
