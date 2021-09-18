@@ -7,3 +7,14 @@
     </div>
 </div>
 <%# Add comment below here %> 
+<form action="/ads/comments" method="POST">
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input type="text" class="form-control" id="title" name="title" placeholder="Ad Title">
+    <input type="text" class="form-control" id="title" name="title" value="<%= ad.id %> " hidden>
+  <div class="form-group">
+    <label for="content">Content:</label>
+    <textarea class="form-control" id="content" name="content" rows="3"></textarea>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+</form>
