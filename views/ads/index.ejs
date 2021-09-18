@@ -1,12 +1,13 @@
 <h1>Welcome to the ads page</h1>
 <% for (let i = 0; i < advertisements.length; i++) { %> 
     <% let ad = advertisements[i]; %> 
-    <div class="card" style="width: 18rem;">
+    <div class="form-group">
+      <h5 class=""><%= ad.title %> </h5>
         <img class="card-img-top" src="..." alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
+        <div class="form-group">
+          <h6 class=""><%= ad.subtitle  %></h6>
+          <p><%= ad.content %> </p>
+          <a href="/ads/<%= ad.id %>" class="btn btn-primary">Review Ad</a>
         </div>
       </div>
 <% } %> 
