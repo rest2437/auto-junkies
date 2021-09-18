@@ -1,11 +1,11 @@
 {
   "development": {
-    "database": "project_2_development",
+    "database": "auto_junkies_development",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {
-    "database": "project_2_development",
+    "database": "auto_junkies_test",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
