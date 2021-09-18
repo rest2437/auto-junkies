@@ -8,9 +8,11 @@
 <p>Name: <%= name %></p>
 <p>Email: <%= email %></p>
 
-<p>Provider unique ID Number:</p>
-<input type="button"  class="btn btn-primary" onclick="copyLink()" data-toggle="tooltip" title="Copy to Clipboard" value="Copy Code" readonly />
+<p>Provider Number:</p>
 <span id="copyText"><%= providerNumber %></span>
+<div>
+    <button type="button"  class="btn btn-primary" onclick="copyLink()" data-toggle="tooltip" title="Copy to Clipboard" readonly >Copy Code</button>
+</div>
 <script>
   function copyLink() {
     let copyText = document.getElementById("copyText") 

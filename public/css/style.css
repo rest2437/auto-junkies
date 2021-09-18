@@ -1,3 +1,6 @@
+body {
+  background-color: rgb(70, 70, 70) !important;
+}
 nav ul li {
   text-decoration: none;
   display: inline-block;
@@ -37,4 +40,7 @@ form {
   padding: 10px;
 
   text-align: center;
+}
+.my-navbar {
+  margin-left: 15px;
 }
