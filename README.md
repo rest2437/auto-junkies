@@ -13,7 +13,7 @@ Auto Junkies is a subdivision of HoodRats Forum. Its primary purpose is to allow
 ---
 
 - Home page lists options to sign in as User or Provider.
-- Will have an option to view previous posts from users so potentially new users may have an idea of how to use the website.
+- Home page is just that. On the top of the page you will see a nav bar which will allow you to navigate through the different pages that the site has to offer... but be aware, you will need to sign up in order to navigate past the sign in page
 
 ---
 
@@ -21,7 +21,7 @@ Auto Junkies is a subdivision of HoodRats Forum. Its primary purpose is to allow
 
 ---
 
-- Once logged in, Users will be able to navigate through their profile, create posts, edit posts, and delete posts. Users will also have a notifications tab where they can view the providers that are interested in completing the work.
+- Once logged in, Users will be able to navigate through their profile and edit their information. Users will also be able to create adds on a separate tab.
 
 ---
 
@@ -29,7 +29,7 @@ Auto Junkies is a subdivision of HoodRats Forum. Its primary purpose is to allow
 
 ---
 
-- Once logged in, Providers will be able to review Users posts so that they may express interest in their capability of completing the job in which the User posted. The Provider will not have access to view other providers, only users posts. Once the provider deems they are confident of the repair, they may express interest by "liking" the add which will in turn send the user a notification with the Providers information.
+- Once logged in, Providers will be able to review Users posts so that they may express interest in their capability of completing the job in which the User posted. The Provider will not have access to view other providers, only users posts. Once the provider deems they are confident of the repair, they may express interest by "commenting" on the add which will allow the user to get into contact with them.
 
 ---
 
@@ -147,7 +147,7 @@ Auto Junkies is a subdivision of HoodRats Forum. Its primary purpose is to allow
 
 ---
 
-- Getting both profiles separated was hard... One main thing that was fighting me in the beginning was using passport. Passport would not recognize the provider so we separated both like below
+- Getting both profiles separated was hard... One main thing that was fighting me in the beginning was using passport. Passport would not recognize the provider so I separated both like below...
 
 ```js
 //Provider//
@@ -173,4 +173,29 @@ userRouter.post(
 );
 ```
 
+THEN, this didnt work, so I reverted back and made the provider and user the same model, with added conditions like below:
+
+```js
+provider: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
+      providerNumber: {
+        type: DataTypes.STRING,
+      },
+```
+
 ---
+
+### Installation
+
+- Open iTerm and navigate to a folder in which you would like to install this app.
+- Clone repository ( git clone https://github.com/rest2437/auto-junkies.git )
+- Open file in VScode ( code . )
+- Open Terminal in VScode ( contol backtick )
+- Install Sequelize ( npm install sequelize-cli -g )
+- Install all dependencies ( npm install )
+- Create DB ( sequelize db:create )
+- Migrate DB (sequelize db:migrate )
+- Create .env file and copy and paste this secret session : SECRET_SESSION=alldayidreamaboutsoftwareengineering
+- Run ( npm run start ) and enjoy!
