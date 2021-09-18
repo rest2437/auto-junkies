@@ -18,6 +18,9 @@ router.get("/u-home", (req, res) => {
 router.get("/adds", (req, res) => {
   res.render("auth/adds");
 });
+router.get("/new", (req, res) => {
+  res.render("auth/adds/new");
+});
 
 router.get("/logout", (req, res) => {
   req.logOut();
