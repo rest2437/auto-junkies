@@ -1,4 +1,4 @@
-<div class="card" style="width: 18rem;">
+<div style="margin-right: 30%; margin-left: 30%;"class="card" style="width: 18rem;">
     <div class="card-body">
       <h2 class="card-title"><%= ad.title %></h2>
       <h4 class="card-title"><%= ad.subtitle %></h4>
@@ -11,10 +11,24 @@
   <div class="form-group">
     <label for="title">Title</label>
     <input type="text" class="form-control" id="title" name="title" placeholder="Ad Title">
-    <input type="text" class="form-control" id="title" name="title" value="<%= ad.id %> " hidden>
+    <input type="text" class="form-control" id="title" name="adId" value="<%= ad.id %> " hidden>
   <div class="form-group">
     <label for="content">Content:</label>
     <textarea class="form-control" id="content" name="content" rows="3"></textarea>
     <button type="submit" class="btn btn-primary">Submit</button>
   </div>
 </form>
+
+<%# Add all comments %> 
+<h3>Comments</h3>
+<% for (let i = 0; i < comments.length; i++) { %>
+  <% let c = comments[i]; %> 
+  <div class="card">
+    <div class="card-body">
+      <h5><%= c.title %></h5>
+      <p><%= c.content %> </p>
+      <p>By: <%= c.User.name %> </p>
+    </div>
+  </div>
+  <hr>
+<% } %> 
