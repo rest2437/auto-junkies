@@ -51,8 +51,7 @@ app.get("/profile", isLoggedIn, (req, res) => {
   }
 });
 
-
-app.use("/ads", require("./controllers/avertisement"));
+app.use("/ads", require("./controllers/advertisement"));
 app.use("/auth", require("./controllers/auth"));
 app.use("/auth", require("./controllers/auth"));
 
