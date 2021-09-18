@@ -19,8 +19,6 @@ router.get("/", isLoggedIn, async (req, res) => {
   }
 });
 
-
-
 router.get("/new", isLoggedIn, async (req, res) => {
   res.render("ads/new");
 });
@@ -53,9 +51,9 @@ router.get("/:idx", isLoggedIn, async (req, res) => {
     console.log(cleanAd);
 
     let rawComments = await Comment.findAll({
-      include: [User]
+      include: [User],
     });
-    let comments = rawComments.map(c => c.toJSON());
+    let comments = rawComments.map((c) => c.toJSON());
 
     res.render("ads/show", { ad: cleanAd, comments });
   } catch (error) {
@@ -64,20 +62,31 @@ router.get("/:idx", isLoggedIn, async (req, res) => {
   }
 });
 
-router.post('/comments', isLoggedIn, async (req, res) => {
+router.post("/comments", isLoggedIn, async (req, res) => {
   try {
     let newComment = await Comment.create({
       title: req.body.title,
       content: req.body.content,
-      userId: req.user.id
-    })
+      userId: req.user.id,
+    });
     let comment = newComment.toJSON();
-    console.log('NEW COMMENT AT 1:18AM', comment);
+    console.log("NEW COMMENT AT 1:18AM", comment);
     res.redirect(`/ads/${req.body.adId}`);
   } catch (error) {
     console.log(error);
     res.redirect(`/ads/${req.body.adId}`);
   }
-})
+});
+router.delete("/comments/:idx", isLoggedIn, async (req, res) => {
+  try {
+    let deleteComment = await Comment.destroy({
+      where: { id: req.params.idx },
+    });
+    res.redirect(`/ads/${req.body.adId}`);
+  } catch (error) {
+    console.log(error);
+    res.redirect(`/ads/${req.body.adId}`);
+  }
+});
 
 module.exports = router;

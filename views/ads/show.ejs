@@ -1,3 +1,5 @@
+<a style="margin-left: 10px;" href="/ads/new" class="btn btn-primary btn-lg" role="button" aria-disabled="true">Create New Add</a>
+
 <div style="margin-right: 30%; margin-left: 30%;"class="card" style="width: 18rem;">
     <div class="card-body">
       <h2 class="card-title"><%= ad.title %></h2>
@@ -7,7 +9,7 @@
     </div>
 </div>
 <%# Add comment below here %> 
-<form action="/ads/comments" method="POST">
+<form style="margin-top: 10px;" action="/ads/comments" method="POST">
   <div class="form-group">
     <label for="title">Title</label>
     <input type="text" class="form-control" id="title" name="title" placeholder="Ad Title">
@@ -28,6 +30,12 @@
       <h5><%= c.title %></h5>
       <p><%= c.content %> </p>
       <p>By: <%= c.User.name %> </p>
+      <% if (ad.User.email === currentUser.email) { %>
+        <form action="/ads/comments/<%= c.id %>/?_method=DELETE" method='POST'>
+          <input type="text" name="adId" id="adId" value='<%= ad.id %>' hidden>
+          <button type="submit">Delete Comment</button>
+        </form>    
+        <% } %> 
     </div>
   </div>
   <hr>
