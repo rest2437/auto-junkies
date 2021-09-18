@@ -15,9 +15,10 @@ router.get("/u-home", (req, res) => {
   res.render("auth/u-home");
 });
 
-router.get("/ads", (req, res) => {
-  res.render("auth/ads");
-});
+// //move to Ads controller
+// router.get("/index", (req, res) => {
+//   res.render("ads/index");
+// });
 
 router.get("/logout", (req, res) => {
   req.logOut();
