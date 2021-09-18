@@ -55,7 +55,7 @@ Auto Junkies is a subdivision of HoodRats Forum. Its primary purpose is to allow
 
 ### Models - Users
 
-- ```js
+```js
   "use strict";
 const bcrypt = require("bcrypt");
 const { Model } = require("sequelize");
@@ -135,7 +135,7 @@ module.exports = (sequelize, DataTypes) => {
 
   return User; // add functions above
 };
-  ```
+```
 
 ---
 
